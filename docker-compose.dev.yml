@@ -9,6 +9,8 @@ services:
             context: ./
         networks:
           - mynetwork
+        links:
+          - redis  
     rabbitmq:
       image: rabbitmq
       volumes:
