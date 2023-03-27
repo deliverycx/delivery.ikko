@@ -11,13 +11,13 @@ services:
           - mynetwork
     rabbitmq:
       image: rabbitmq
-      volumes:
-        - rabbit_data:/var/lib/rabbitmq
       ports:
         - "5672:5672"
         - "15672:15672"
+      depends_on:
+         - deliverycx_ikko
       networks:
-        - deliverycx_ikko         
+        - mynetwork    
 networks:
   mynetwork:
     external:
