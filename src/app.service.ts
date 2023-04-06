@@ -5,13 +5,13 @@ import { Queue } from 'bull';
 
 @Injectable()
 export class AppService {
-	constructor(@InjectQueue('audio') private audioQueue: Queue) {}
+	constructor(@InjectQueue('order') private ordersQueue: Queue) {}
 	
   getHello(): string {
     return 'Hello World!';
   }
 	async cityMicro(){
-		const job = await this.audioQueue.add('masage',{
+		const job = await this.ordersQueue.add('masage',{
 		  foo: 'bar',
 		});
 		console.log('отправка джобы');

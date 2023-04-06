@@ -13,21 +13,22 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+	
 
-	@EventPattern('user_created')
+	@EventPattern('order_created')
   async handleUserCreated(@Payload() subscriber: any,@Ctx() context: RmqContext,) {
 		try {
 
 
-			const {data} = await axios.get('https://моб.тест.хинкалыч.рф/api/city/all')
+			
 			console.log('клнекь',subscriber);
 			await this.appService.cityMicro()
 			
 			const channel = context.getChannelRef();
-		  const originalMsg = context.getMessage();
+		  const originalMsg = context.getMessage(); 
 		  channel.ack(originalMsg);
  
-			return data
+		
 			
 		} catch (error) {
 			Logger.warn(
@@ -38,6 +39,7 @@ export class AppController {
 			
 		} 
   }
+	/**/
 
 	/*
 	@MessagePattern({ cmd: 'get_analytics' })
@@ -53,6 +55,8 @@ export class AppController {
 		return q
   }
 	*/
+
+	/*
 	@MessagePattern({ cmd: 'get_analytics' })
 	async addSubscriber(
 		@Payload() subscriber: any,
@@ -82,4 +86,5 @@ export class AppController {
 		
 	   
 	}
+	*/
 }
