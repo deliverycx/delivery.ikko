@@ -7,6 +7,8 @@ import { RmqModule } from '@app/shared';
 import { ConfigModule } from '@nestjs/config';
 import * as path from "path";
 import { OrderModule } from './components/orders/module/orders.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ADMIN_DB } from './database/config.mongodb';
 
 @Module({
   imports: [
@@ -16,6 +18,10 @@ import { OrderModule } from './components/orders/module/orders.module';
           `../../.${process.env.NODE_ENV}.env`
       )
     }),
+    MongooseModule.forRoot(process.env.CONNECTION_1,
+      {
+        connectionName: ADMIN_DB
+      }),
 	
 		OrderModule
 	],

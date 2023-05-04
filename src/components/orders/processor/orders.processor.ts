@@ -3,54 +3,40 @@ import { OnQueueActive, OnQueueCompleted, OnQueueError, OnQueueFailed, OnQueueSt
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { Job } from 'bull';
 import axios from 'axios';
+import { CreateOrderServise } from '@app/shared/ikko/orderServies/createOrder.servise';
+import { Inject } from '@nestjs/common';
+import { OrdersRepository } from '../repository/orders.repository';
 
 
 @Processor('order')
 export class OrdersConsumer {
 	
-	constructor(private schedulerRegistry: SchedulerRegistry) {}
+	constructor(
+		@Inject(OrdersRepository) private readonly orderRepository,
+		private schedulerRegistry: SchedulerRegistry,
+		private readonly createOrderServise: CreateOrderServise
+	) {}
 
-	async token() {
-		const { data } = await axios.post<{token:string}>(
-				`https://api-ru.iiko.services/api/1/access_token`,
-				{
-					apiLogin: "8991a0c8-0af"
-				}
-		);
-		
-		return data.token;
-	}
+
 
   @Process('submit_order')
-  async transcode(job: Job<unknown>) {
-		const token = await this.token()
-		const { data } = await axios.post(
-			`https://api-ru.iiko.services/api/1/deliveries/by_id`,
-			job.data,
-			{
-				headers: { Authorization: `Bearer ${token}` }
-			}
-		);
-		const interval = this.schedulerRegistry.getInterval('qq');
+  async transcode(job: Job<any>) {
+
+		const order = await this.createOrderServise.statusOrder(job.data)
 		
 
-		const order = data.orders[0]
-		if(order.creationStatus === 'Error'){
-			
-			
+		if(order && order.creationStatus === 'Error'){
+			const interval = this.schedulerRegistry.getInterval(order.id);
 			clearInterval(interval); 
-		}else{
-			
+			await this.orderRepository.orderUpdateBYID(order.id,{
+				orderStatus:"ERROR",
+				orderNumber:order.number,
+				orderError:order.errorInfo
+			})
+			console.log('ошибка в статусе');
 		} 
-		
-
-	
-
 		return order
   }
-
-
-
 
 	@OnQueueActive()
   async onActive(job: Job) { 
@@ -62,24 +48,43 @@ export class OrdersConsumer {
 
 	@OnQueueCompleted() 
 	async complite(job: Job){
-		
-		console.log('OnQueueCompleted закончилась',job.returnvalue);
+		if(job.returnvalue && job.returnvalue.creationStatus === 'Success'){
+			const order = job.returnvalue
+			const interval = this.schedulerRegistry.getInterval(order.id);
+			clearInterval(interval); 
+			await this.orderRepository.orderUpdateBYID(order.id,{
+				orderStatus:order.creationStatus,
+				orderNumber:order.number
+			})
+		} 
+		console.log('OnQueueCompleted закончилась');
 	}
 
 	@OnQueueStalled()
 	stalled(job: Job){
-		console.log('остановилось');
+		const order = job.returnvalue
+		const interval = this.schedulerRegistry.getInterval(order.id);
+		clearInterval(interval);
 	}
 
-	@OnQueueFailed()
-	falis(job: Job,err:Error){
+	 @OnQueueFailed()
+	 async falis(job: Job,err:Error){
+			const order = job.returnvalue
+			const interval = this.schedulerRegistry.getInterval(order.id);
+			clearInterval(interval); 
+			await this.orderRepository.orderUpdateBYID(order.id,{
+				orderStatus:order.creationStatus,
+				orderError:err.message
+			})
 		console.log('сломалось ',err.message);
 	}
 
 	
 
 	@OnQueueError()
-	error(){
-		console.log('ошибка ');
+	error(job: Job){
+		const order = job.returnvalue
+		const interval = this.schedulerRegistry.getInterval(order.id);
+		clearInterval(interval);
 	}
 }

@@ -11,6 +11,10 @@ import { OrdersConsumer } from "../processor/orders.processor";
 import { OrdersStatusConsumer } from "../processor/orderstatus.processor";
 import { EventEmitterModule } from "@nestjs/event-emitter";
 import { SchedulerRegistry } from "@nestjs/schedule";
+import { ADMIN_DB } from "src/database/config.mongodb";
+import { OrderModel } from "src/database/order.model";
+import { TypegooseModule } from "nestjs-typegoose";
+import { CreateOrderServise } from "@app/shared/ikko/orderServies/createOrder.servise";
 
 @Module({
 	imports: [
@@ -20,6 +24,7 @@ import { SchedulerRegistry } from "@nestjs/schedule";
           `../../.${process.env.NODE_ENV}.env`
       )
     }),
+		TypegooseModule.forFeature([OrderModel], ADMIN_DB),
 		BullModule.forRoot({
       redis: {
         host: process.env.REDIS_HOST,
@@ -36,7 +41,8 @@ import { SchedulerRegistry } from "@nestjs/schedule";
 		OrdersServise,
 		OrdersRepository,
 		OrdersConsumer,
-		SchedulerRegistry
+		SchedulerRegistry,
+		CreateOrderServise
 	],
 })
 export class OrderModule{
