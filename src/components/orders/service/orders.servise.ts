@@ -66,7 +66,6 @@ export class OrdersServise{
 				]
 			},
 			{			
-				backoff:1000,
 				jobId
 			}
 		);

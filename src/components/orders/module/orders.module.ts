@@ -15,6 +15,7 @@ import { ADMIN_DB } from "src/database/config.mongodb";
 import { OrderModel } from "src/database/order.model";
 import { TypegooseModule } from "nestjs-typegoose";
 import { CreateOrderServise } from "@app/shared/ikko/orderServies/createOrder.servise";
+import { BotService } from "@app/shared/deliveryBot/bot.service";
 
 @Module({
 	imports: [
@@ -42,7 +43,8 @@ import { CreateOrderServise } from "@app/shared/ikko/orderServies/createOrder.se
 		OrdersRepository,
 		OrdersConsumer,
 		SchedulerRegistry,
-		CreateOrderServise
+		CreateOrderServise,
+		BotService
 	],
 })
 export class OrderModule{

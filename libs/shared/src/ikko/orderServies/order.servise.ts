@@ -37,11 +37,13 @@ export class OrderServise{
 		return terminal
 	}
 
-	public async getOrderTypesId():Promise<{id:string,name:string}> {
-		const ikkoOrderTypes = await this.ikkoRequest.orderTypes(this.getsubscriberBodyOrder.organization);
+	public async getOrderTypesId(orderType?:string,organization?:string):Promise<{id:string,name:string}> {
+
+		//console.log(this.getsubscriberBodyOrder);
+		const ikkoOrderTypes = await this.ikkoRequest.orderTypes(organization || this.getsubscriberBodyOrder.organization);
 		const result = ikkoOrderTypes.orderTypes[0].items.find((orderTypeEl) => {
 
-			switch (this.getsubscriberBodyOrder.orderType) {
+			switch (orderType || this.getsubscriberBodyOrder.orderType) {
 				case OrderTypesEnum.PICKUP:
 					return orderTypeEl.id === '5b1508f9-fe5b-d6af-cb8d-043af587d5c2' && orderTypeEl
 				case OrderTypesEnum.COURIER:

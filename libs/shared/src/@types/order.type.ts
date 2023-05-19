@@ -3,18 +3,20 @@
 import { OrderDTO } from '../ikko/dto/subcriberBodyOrder.dto';
 
 interface INestedAddressBody {
-	address:{
-		street:{
+	address: {
+		street: {
 			classifierId: string, //orderInfo.address.street
-			city:string
+			city: string
 		},
-		house:string,
-		floor:string,
-		flat:string,
-		entrance:string,
-		doorphone:string
+		house: string,
+		floor: string,
+		flat: string,
+		entrance: string,
+		doorphone: string
+		kladrid: string
+
 	},
-	comment:`${string},${string}`
+	comment: `${string},${string}`
 }
 interface INestedItemsBody {
 	id: string;
@@ -28,15 +30,15 @@ interface INestedOrderBody {
 		name: string,
 		comment: string
 	},
-	deliveryPoint:INestedAddressBody
+	deliveryPoint: INestedAddressBody
 	guests: {
 		count: 1,
 		splitBetweenPersons: false
 	},
-	items:INestedItemsBody[]
+	items: INestedItemsBody[]
 	comment: string,
-	orderTypeId:string,
-	payments:any
+	orderTypeId: string,
+	payments: any
 }
 
 export interface IOrderBody {
@@ -63,4 +65,39 @@ export interface ICart {
 export type IsubscriberBodyBody = {
 	orderbody: OrderDTO,
 	cart: ICart[]
+}
+
+export type IOrderEntiti = {
+	organization: string
+	orderNumber: number
+	orderHash: string
+	orderStatus: string
+	orderItems: ICart[]
+	orderParams: {
+		address: {
+			city: string
+			street: string
+			home: string
+			flat: string
+			intercom: string
+			entrance: string
+			floor: string
+			kladrid: string
+		}
+		organization: string
+		name: string
+		date: string
+		phone: string
+		comment: string
+		localhost: string
+		hash: string
+		orderAmount: number
+		orderType: string
+		paymentMethod: string
+		orderTable: null | {
+			numb:number
+		}
+	}
+	orderError: null | any
+	orderId: string
 }

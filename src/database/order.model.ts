@@ -13,7 +13,7 @@ export class OrderModel {
 		@prop({ type: () => String })
 		public orderId:string
 
-		@prop()
+		@prop({ type: () => Number })
 		public orderNumber:number
 
 		@prop({ type: () => String })

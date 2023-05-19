@@ -25,9 +25,10 @@ export class OrdersRepository{
 					orderError:bodyError,
 					orderStatus:"ERROR"
 				}
-			}
-			
+			},
+			{ upsert: true,new: true  }
 		)
+		return reuslt
  	}
 
 	 async orderUpdateBYhash(hash:string,body:any){
@@ -35,18 +36,22 @@ export class OrdersRepository{
 				{orderHash:hash},
 				{
 					$set:body
-				}
-				
+				},
+				{ upsert: true,new: true  }
 			)
+			return reuslt
 	 	}
 
 		 async orderUpdateBYID(id:string,body:any){
 			const reuslt = await this.Model.findOneAndUpdate(
 				{orderId:id},
 				{
-					$set:body
-				}
+					$set:body,
+
+				},
+				{ upsert: true,new: true  }
 				
 			)
+			return reuslt
 	 	}
 }

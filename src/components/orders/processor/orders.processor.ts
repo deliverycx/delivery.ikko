@@ -6,6 +6,7 @@ import axios from 'axios';
 import { CreateOrderServise } from '@app/shared/ikko/orderServies/createOrder.servise';
 import { Inject } from '@nestjs/common';
 import { OrdersRepository } from '../repository/orders.repository';
+import { BotService } from '@app/shared/deliveryBot/bot.service';
 
 
 @Processor('order')
@@ -14,7 +15,8 @@ export class OrdersConsumer {
 	constructor(
 		@Inject(OrdersRepository) private readonly orderRepository,
 		private schedulerRegistry: SchedulerRegistry,
-		private readonly createOrderServise: CreateOrderServise
+		private readonly createOrderServise: CreateOrderServise,
+		private readonly botService: BotService
 	) {}
 
 
@@ -23,7 +25,7 @@ export class OrdersConsumer {
   async transcode(job: Job<any>) {
 
 		const order = await this.createOrderServise.statusOrder(job.data)
-		
+		console.log('старус оредера',order);
 
 		if(order && order.creationStatus === 'Error'){
 			const interval = this.schedulerRegistry.getInterval(order.id);
@@ -52,11 +54,15 @@ export class OrdersConsumer {
 			const order = job.returnvalue
 			const interval = this.schedulerRegistry.getInterval(order.id);
 			clearInterval(interval); 
-			await this.orderRepository.orderUpdateBYID(order.id,{
+			const resultOrder = await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
-				orderNumber:order.number
+				orderNumber:order.order.number,
+				"orderParams.orderAmount":order.order.sum
 			})
+			await this.botService.sendDuplicate(resultOrder)
+			
 		} 
+		
 		console.log('OnQueueCompleted закончилась');
 	}
 
