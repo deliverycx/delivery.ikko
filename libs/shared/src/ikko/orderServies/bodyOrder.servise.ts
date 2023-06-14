@@ -29,6 +29,7 @@ export class BodyOrderServise extends OrderServise {
 		const terminal = await this.teminalOrganization()
 
 		this.commonBodyBrick(terminal)
+		console.log(this.getsubscriberBodyOrder);
 		
 		switch(this.getsubscriberBodyOrder.orderType){
 			case OrderTypesEnum.COURIER:
@@ -138,7 +139,7 @@ export class BodyOrderServise extends OrderServise {
 		const res = this.bilderBody()
 		
 		return res
-		
+		/*
 		return {
 			"organizationId": "1b0eb12f-970d-44b6-8167-044c097f174b",
 			"terminalGroupId": "387dc60c-eac9-42a0-8265-b7b1818a3fb1",
@@ -181,6 +182,8 @@ export class BodyOrderServise extends OrderServise {
 					}
 				]
 			}
+			
 		}
+		*/
 	}
 }
