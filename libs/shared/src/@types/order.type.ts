@@ -101,3 +101,8 @@ export type IOrderEntiti = {
 	orderError: null | any
 	orderId: string
 }
+
+export type orderRequestStatusData = {
+	organizationId: string
+  orderIds:string
+}

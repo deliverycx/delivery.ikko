@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { orderRequestStatusData } from "@app/shared/@types";
 import { AxiosRequest } from "@app/shared/servises/AxiosRequest";
 import { Axios, AxiosInstance } from "axios";
 
@@ -90,7 +91,7 @@ export class IIkoAxios extends AxiosRequest {
 		return data.orderInfo;
 	}
 
-	public async orderCheckStatusOrderDelivery(orderData: any) {
+	public async orderCheckStatusOrderDelivery(orderData: orderRequestStatusData) {
 		const token = await this.token();
 
 		const { data } = await this._axios.post(
@@ -106,12 +107,18 @@ export class IIkoAxios extends AxiosRequest {
 		return data.orders[0];
 	}
 
-	public async orderCheckStatusOrder(orderData: any) {
+	public async orderCheckStatusOrder(orderData: orderRequestStatusData) {
 		const token = await this.token();
-
+		
 		const { data } = await this._axios.post(
 			`/order/by_id`,
-			orderData,
+			{
+				"organizationIds": [
+					orderData.organizationId
+				],
+				"orderIds": orderData.orderIds
+			
+			},
 			{
 				headers: { Authorization: `Bearer ${token}` }
 			}

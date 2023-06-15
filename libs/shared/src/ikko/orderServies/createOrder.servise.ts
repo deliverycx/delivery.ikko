@@ -3,6 +3,7 @@
 import { Injectable } from "@nestjs/common";
 import { IIkoAxios } from "../request/ikko.request";
 import { BodyOrderServise } from "./bodyOrder.servise";
+import { OrderTypesEnum } from "@app/shared/common/constants/order.const";
 
 @Injectable()
 export class CreateOrderServise extends BodyOrderServise{
@@ -16,14 +17,20 @@ export class CreateOrderServise extends BodyOrderServise{
 
 	async createOrder(){
 		const body = await this.bilderBody()
-		console.log('bpdyy',body);
-		const result = await this.ikkoRequest.orderCreateDelivery(body)
-		return result
+		
+		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){
+			return await this.ikkoRequest.orderCreate(body)
+		}else{
+			return await this.ikkoRequest.orderCreateDelivery(body)
+		}
 
 	}
 
 	async statusOrder(body:any){
-		const result = await this.ikkoRequest.orderCheckStatusOrderDelivery(body)
-		return result
+		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){
+			return await this.ikkoRequest.orderCheckStatusOrder(body)
+		}else{
+			return await this.ikkoRequest.orderCheckStatusOrderDelivery(body)
+		}
 	}
 }

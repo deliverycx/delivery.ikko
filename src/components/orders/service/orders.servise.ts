@@ -71,7 +71,7 @@ export class OrdersServise{
 		);
 		
 		//проверка количества тиков счечиком и оставновка при ошибке
-		if (counter >= 2){
+		if (counter >= 5){
 			const interval = this.schedulerRegistry.getInterval(order.id);
 			//await job.queue.off()
 			clearInterval(interval); 
