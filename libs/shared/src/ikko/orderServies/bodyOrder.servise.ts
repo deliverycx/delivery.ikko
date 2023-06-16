@@ -117,7 +117,7 @@ export class BodyOrderServise extends OrderServise {
 
 					}
 				] :
-				this.getsubscriberBodyOrder.paymentMethod === OrderPaymentTypes.PAY
+				this.getsubscriberBodyOrder.paymentMethod === OrderPaymentTypes.CARD
 					? [
 						{
 							"paymentTypeKind": "Card",
