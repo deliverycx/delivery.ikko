@@ -29,8 +29,9 @@ export class BodyOrderServise extends OrderServise {
 		const terminal = await this.teminalOrganization()
 
 		this.commonBodyBrick(terminal)
-		
-		
+		console.log('getsubscriberBodyOrder',this.getsubscriberBodyOrder);
+		this.adressDeliveryBrick(this.getsubscriberBodyOrder.orderType)
+		/*
 		switch(this.getsubscriberBodyOrder.orderType){
 			case OrderTypesEnum.COURIER:
 				this.adressDeliveryBrick()
@@ -39,6 +40,12 @@ export class BodyOrderServise extends OrderServise {
 				this.OnspotBrick()
 				break
 		}
+		*/
+
+		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){
+			this.OnspotBrick()
+		}
+
 		this.orderBrick(typeOrder)
 		this.paymentsBrick()
 
@@ -78,9 +85,10 @@ export class BodyOrderServise extends OrderServise {
 		this.orderBodyStates(res, 'order')
 	}
 
-	private adressDeliveryBrick() {
+	private adressDeliveryBrick(orderType:string) {
+		console.log('ordertype - ',orderType,OrderTypesEnum.COURIER);
 		const res = {
-			deliveryPoint: {
+			deliveryPoint: orderType === OrderTypesEnum.COURIER ? {
 				address: {
 					street: {
 						classifierId: this.getsubscriberBodyOrder.address.kladrid, //orderInfo.address.street
@@ -93,9 +101,10 @@ export class BodyOrderServise extends OrderServise {
 					doorphone: this.getsubscriberBodyOrder.address.intercom
 				},
 				comment: `${this.getsubscriberBodyOrder.address.street},${this.getsubscriberBodyOrder.address.home}`
-			},
+			}
+			: null
 		}
-
+		
 		this.orderBodyStates(res, 'order')
 	}
 
