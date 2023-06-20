@@ -29,7 +29,7 @@ export class BodyOrderServise extends OrderServise {
 		const terminal = await this.teminalOrganization()
 
 		this.commonBodyBrick(terminal)
-		console.log(this.getsubscriberBodyOrder);
+		
 		
 		switch(this.getsubscriberBodyOrder.orderType){
 			case OrderTypesEnum.COURIER:
@@ -41,6 +41,8 @@ export class BodyOrderServise extends OrderServise {
 		}
 		this.orderBrick(typeOrder)
 		this.paymentsBrick()
+
+		console.log('body state',this.bodyState);
 		return this.bodyState
 	}
 
