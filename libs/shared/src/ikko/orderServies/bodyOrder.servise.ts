@@ -29,7 +29,7 @@ export class BodyOrderServise extends OrderServise {
 		const terminal = await this.teminalOrganization()
 
 		this.commonBodyBrick(terminal)
-		console.log('getsubscriberBodyOrder',this.getsubscriberBodyOrder);
+		
 		this.adressDeliveryBrick(this.getsubscriberBodyOrder.orderType)
 		/*
 		switch(this.getsubscriberBodyOrder.orderType){
@@ -86,7 +86,7 @@ export class BodyOrderServise extends OrderServise {
 	}
 
 	private adressDeliveryBrick(orderType:string) {
-		console.log('ordertype - ',orderType,OrderTypesEnum.COURIER);
+		console.log('ordertype - ',orderType);
 		const res = {
 			deliveryPoint: orderType === OrderTypesEnum.COURIER ? {
 				address: {
