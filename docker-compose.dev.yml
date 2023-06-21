@@ -7,6 +7,7 @@ services:
             - ./.production.env
         build:
             context: ./
+        restart: unless-stopped
         networks:
           - mynetwork
     rabbitmq:
