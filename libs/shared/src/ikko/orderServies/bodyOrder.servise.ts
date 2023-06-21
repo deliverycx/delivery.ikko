@@ -49,7 +49,7 @@ export class BodyOrderServise extends OrderServise {
 		this.orderBrick(typeOrder)
 		this.paymentsBrick()
 
-		console.log('body state',this.bodyState);
+		console.log('body state',this.getsubscriberBodyOrder);
 		return this.bodyState
 	}
 
@@ -123,7 +123,7 @@ export class BodyOrderServise extends OrderServise {
 				? [
 					{
 						"paymentTypeKind": "Card",
-						"sum": this.getsubscriberBodyOrder.paymentsum || 10,
+						"sum": this.getsubscriberBodyOrder.orderAmount,
 						"paymentTypeId": "dfeb1b1e-36bb-4861-baf8-03be367e169a",
 
 					}

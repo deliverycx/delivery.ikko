@@ -44,6 +44,8 @@ export class OrderDTO {
 
     paymentMethod:any;
 
+		orderAmount:number
+
 
 		hash:string
 
