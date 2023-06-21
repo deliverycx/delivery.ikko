@@ -12,7 +12,7 @@ async function bootstrap() {
       transport: Transport.TCP,
     },
   );
-	*/
+	*/ 
 	/* 
 	const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
 	  transport: Transport.RMQ,
