@@ -49,7 +49,7 @@ export class BodyOrderServise extends OrderServise {
 		this.orderBrick(typeOrder)
 		this.paymentsBrick()
 
-		console.log('body state',this.getsubscriberBodyOrder);
+		console.log('body state',this.bodyState);
 		return this.bodyState
 	}
 
