@@ -123,7 +123,7 @@ export class BodyOrderServise extends OrderServise {
 				? [
 					{
 						"paymentTypeKind": "Card",
-						"sum": this.getsubscriberBodyOrder.paymentsum,
+						"sum": this.getsubscriberBodyOrder.paymentsum || 10,
 						"paymentTypeId": "dfeb1b1e-36bb-4861-baf8-03be367e169a",
 
 					}
