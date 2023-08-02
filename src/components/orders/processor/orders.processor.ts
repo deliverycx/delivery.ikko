@@ -27,6 +27,8 @@ export class OrdersConsumer {
 		const order = await this.createOrderServise.statusOrder(job.data)
 		console.log('старус оредера',order);
 
+		
+
 		if(order && order.creationStatus === 'Error'){
 			const interval = this.schedulerRegistry.getInterval(order.id);
 			clearInterval(interval); 
@@ -35,6 +37,11 @@ export class OrdersConsumer {
 				orderNumber:order.number,
 				orderError:order.errorInfo
 			})
+			if(!order){
+				const interval = this.schedulerRegistry.getInterval(order.id);
+				clearInterval(interval);
+				console.log('статуса нету');
+			}
 			console.log('ошибка в статусе');
 		} 
 		return order
