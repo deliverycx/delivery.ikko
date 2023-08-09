@@ -16,6 +16,7 @@ export class OrdersController {
 	@EventPattern('order_created')
 	async handleOrderCreate(@Payload() subscriberBody: IsubscriberBodyBody,@Ctx() context: RmqContext){
 		try {
+			console.log('subs',subscriberBody);
 			this.createOrderServise.setSubscriberBodyOrder = subscriberBody
 			
 			const order = await this.ordersServise.createOrder(subscriberBody)
