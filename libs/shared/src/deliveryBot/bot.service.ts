@@ -22,6 +22,10 @@ export class BotService{
 				const {name:orderTypeName} = await this.orderServise.getOrderTypesId(orderBody.orderParams.orderType,orderBody.organization)
 
         await this.botRequest.sendDuplicate(orderBody.organization, {
+						orderid:orderBody.orderId,
+						ordernumber:orderBody.orderNumber,
+						orderdata:orderBody.orderParams.date,
+						orderamount:orderBody.orderParams.orderAmount,
             address: `${orderBody.orderParams.address.city},${orderBody.orderParams.address.street},${orderBody.orderParams.address.home}`,
             name: orderBody.orderParams.name,
             comment:orderBody.orderParams.comment,
