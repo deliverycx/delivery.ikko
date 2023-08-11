@@ -22,7 +22,7 @@ export class OrdersController {
 			const order = await this.ordersServise.createOrder(subscriberBody)
 			console.log('создал оредер',order);
 			if(order){
-				this.createOrderServise.setSubscriberBodyOrder = subscriberBody
+				//this.createOrderServise.setSubscriberBodyOrder = subscriberBody
 				await this.ordersServise.addInterval(order)
 			}
 			
