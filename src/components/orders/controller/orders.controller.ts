@@ -17,7 +17,7 @@ export class OrdersController {
 	async handleOrderCreate(@Payload() subscriberBody: IsubscriberBodyBody,@Ctx() context: RmqContext){
 		try {
 			console.log('subs',subscriberBody);
-			this.createOrderServise.setSubscriberBodyOrder = subscriberBody
+			//this.createOrderServise.setSubscriberBodyOrder = subscriberBody
 			
 			const order = await this.ordersServise.createOrder(subscriberBody)
 			console.log('создал оредер',order);

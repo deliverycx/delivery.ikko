@@ -29,7 +29,7 @@ export class OrdersServise{
 	async createOrder(bodyOrder:IsubscriberBodyBody){
 		
 		try {
-			const result = await this.createOrderServise.createOrder()
+			const result = await this.createOrderServise.createOrder(bodyOrder)
 			await this.Repository.orderUpdateBYhash(bodyOrder.orderbody.hash,{
 				orderId:result.id,
 				orderStatus:result.creationStatus

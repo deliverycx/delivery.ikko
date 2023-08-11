@@ -2,7 +2,7 @@
 import { OrderPaymentTypes, OrderTypesEnum } from "@app/shared/common/constants/order.const";
 import { IIkoAxios } from "../request/ikko.request";
 import { OrderServise } from "./order.servise";
-import { IOrderBody } from "@app/shared/@types";
+import { IOrderBody, IsubscriberBodyBody } from "@app/shared/@types";
 
 /* eslint-disable prettier/prettier */
 export class BodyOrderServise extends OrderServise {
@@ -24,7 +24,8 @@ export class BodyOrderServise extends OrderServise {
 
 	}
 
-	public async bilderBody() {
+	public async bilderBody(bodyOrder:IsubscriberBodyBody) {
+		this.setSubscriberBodyOrder = bodyOrder
 		const typeOrder = await this.getOrderTypesId()
 		const terminal = await this.teminalOrganization()
 
@@ -146,10 +147,11 @@ export class BodyOrderServise extends OrderServise {
 
 
 
-		body() {
-		const res = this.bilderBody()
+		body(bodyOrder:IsubscriberBodyBody) {
 		
-		return res
+		//const res = this.bilderBody()
+		
+		//return res
 		/*
 		return {
 			"organizationId": "1b0eb12f-970d-44b6-8167-044c097f174b",

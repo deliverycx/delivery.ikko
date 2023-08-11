@@ -15,8 +15,8 @@ export class CreateOrderServise extends BodyOrderServise{
 		//this.bodyOrder = new BodyOrderServise()
 	}
 
-	async createOrder(){
-		const body = await this.bilderBody()
+	async createOrder(bodyOrder){
+		const body = await this.bilderBody(bodyOrder)
 		
 		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){
 			return await this.ikkoRequest.orderCreate(body)
