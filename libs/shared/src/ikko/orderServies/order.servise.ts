@@ -53,7 +53,7 @@ export class OrderServise{
 			}
 		});
 
-
+		console.log(result);
 		return { name: result?.name, id: result?.id };
 	}
 }

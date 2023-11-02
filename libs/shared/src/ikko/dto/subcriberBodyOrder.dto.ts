@@ -22,7 +22,9 @@ export class OrderDTO {
         intercom: number;
         entrance: number;
         floor: number;
-				kladrid:string
+				kladrid:{
+					classifierId:string
+				}
 				cordAdress?:number[]
     };
 
@@ -46,7 +48,7 @@ export class OrderDTO {
 
 		orderAmount:number
 
-
+		timedelivery:string
 		hash:string
 
     email?: string;

@@ -26,7 +26,7 @@ export class BotService{
 						ordernumber:orderBody.orderNumber,
 						orderdata:orderBody.orderParams.date,
 						orderamount:orderBody.orderParams.orderAmount,
-            address: `${orderBody.orderParams.address.city},${orderBody.orderParams.address.street},${orderBody.orderParams.address.home}`,
+            address: orderBody.orderParams.address ? `${orderBody.orderParams.address.city},${orderBody.orderParams.address.street},${orderBody.orderParams.address.home}` : "",
             name: orderBody.orderParams.name,
             comment:orderBody.orderParams.comment,
             phone: orderBody.orderParams.phone,
@@ -38,7 +38,11 @@ export class BotService{
             }),
 						orderTypeName:orderBody.orderParams.orderType,
             orderType:orderTypeName,
-						ONSPOTTable:orderBody.orderParams.orderTable ? orderBody.orderParams.orderTable.numb : 0
+						ONSPOTTable:orderBody.orderParams.orderTable ? orderBody.orderParams.orderTable.numb : 0,
+						deliveryParam:{
+							timedelivery:orderBody.orderParams.timedelivery,
+							customermoneu:orderBody.orderParams.money
+						}
         });
     }
 		public PaymentOrder(organizationId,data:any){

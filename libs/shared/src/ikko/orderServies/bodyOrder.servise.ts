@@ -92,7 +92,7 @@ export class BodyOrderServise extends OrderServise {
 			deliveryPoint: orderType === OrderTypesEnum.COURIER ? {
 				address: {
 					street: {
-						classifierId: this.getsubscriberBodyOrder.address.kladrid, //orderInfo.address.street
+						classifierId: this.getsubscriberBodyOrder.address.kladrid.classifierId, //orderInfo.address.street
 						city: this.getsubscriberBodyOrder.address.city
 					},
 					house: this.getsubscriberBodyOrder.address.home,
@@ -101,7 +101,7 @@ export class BodyOrderServise extends OrderServise {
 					entrance: this.getsubscriberBodyOrder.address.entrance,
 					doorphone: this.getsubscriberBodyOrder.address.intercom
 				},
-				comment: `${this.getsubscriberBodyOrder.address.street},${this.getsubscriberBodyOrder.address.home}`
+				comment: `${this.getsubscriberBodyOrder.address.street},${this.getsubscriberBodyOrder.address.home} / ${this.getsubscriberBodyOrder.timedelivery}`
 			}
 			: null
 		}

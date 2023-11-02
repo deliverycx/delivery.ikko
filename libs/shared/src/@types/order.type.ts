@@ -13,7 +13,9 @@ interface INestedAddressBody {
 		flat: string,
 		entrance: string,
 		doorphone: string
-		kladrid: string
+		kladrid: {
+			classifierId:string
+		}
 
 	},
 	comment: `${string},${string}`
@@ -83,6 +85,7 @@ export type IOrderEntiti = {
 			entrance: string
 			floor: string
 			kladrid: string
+			
 		}
 		organization: string
 		name: string
@@ -97,6 +100,8 @@ export type IOrderEntiti = {
 		orderTable: null | {
 			numb:number
 		}
+		timedelivery:string
+		money:number
 	}
 	orderError: null | any
 	orderId: string
