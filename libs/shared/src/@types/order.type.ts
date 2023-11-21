@@ -102,6 +102,7 @@ export type IOrderEntiti = {
 		}
 		timedelivery:string
 		money:number
+		devises:string
 	}
 	orderError: null | any
 	orderId: string

@@ -41,7 +41,8 @@ export class BotService{
 						ONSPOTTable:orderBody.orderParams.orderTable ? orderBody.orderParams.orderTable.numb : 0,
 						deliveryParam:{
 							timedelivery:orderBody.orderParams.timedelivery,
-							customermoneu:orderBody.orderParams.money
+							customermoneu:orderBody.orderParams.money,
+							devises:orderBody.orderParams.devises
 						}
         });
     }
