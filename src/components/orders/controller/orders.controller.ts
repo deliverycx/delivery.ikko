@@ -16,14 +16,14 @@ export class OrdersController {
 	@EventPattern('order_created')
 	async handleOrderCreate(@Payload() subscriberBody: IsubscriberBodyBody,@Ctx() context: RmqContext){
 		try {
-			console.log('subs',subscriberBody);
+			//console.log('subs',subscriberBody);
 			//this.createOrderServise.setSubscriberBodyOrder = subscriberBody
 			
 			const order = await this.ordersServise.createOrder(subscriberBody)
-			console.log('создал оредер',order);
+			//console.log('создал оредер',order);
 			if(order){
 				//this.createOrderServise.setSubscriberBodyOrder = subscriberBody
-				await this.ordersServise.addInterval(order)
+				await this.ordersServise.addInterval(order,subscriberBody.orderbody.hash)
 			}
 			
 			

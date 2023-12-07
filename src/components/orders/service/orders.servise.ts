@@ -52,8 +52,8 @@ export class OrdersServise{
 	}
 
 	//запуск очереди с счечиком
-	async orderQueueHandler(order:any,counter:any){
-		const jobId = `order:${randomUUID()}`;
+	async orderQueueHandler(order:any,counter:any,jobId:string){
+		//const jobId = `order:${hash}`; //randomUUID()
 
 
 
@@ -68,32 +68,39 @@ export class OrdersServise{
 			{			
 				jobId,
 				attempts:1,
-				removeOnFail:true
+				removeOnFail:false
 			}
 		);
 		
 		//проверка количества тиков счечиком и оставновка при ошибке
 		if (counter >= 15){
-			const interval = this.schedulerRegistry.getInterval(order.id);
+			const interval = this.schedulerRegistry.getInterval(jobId);
 			//await job.queue.off()
 			clearInterval(interval); 
 			await this.Repository.orderError({orderId:order.id},{error:"Привышено время ожидания"})
 		}	
+
+		if(counter === 16){
+			const interval = this.schedulerRegistry.getInterval(jobId);
+			//await job.queue.off()
+			clearInterval(interval); 
+		}
 
 		console.log(counter);
 		console.log('отправка джобы'); 
 	}
 
 	//счечик
-	async addInterval(order:any) {
+	async addInterval(order:any,hash:string) {
+		const jobId = `order:${hash}`;
 		const milliseconds = 5000
 		if(order){
 			let counter = 0			
 		  const interval = setInterval(async () => {
-				await this.orderQueueHandler(order,counter)
+				await this.orderQueueHandler(order,counter,jobId)
 				counter++
 			}, milliseconds); 
-		  this.schedulerRegistry.addInterval(order.id, interval);
+		  this.schedulerRegistry.addInterval(jobId, interval);
 		}
 			 
 		

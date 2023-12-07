@@ -27,10 +27,13 @@ export class OrdersConsumer {
 		const order = await this.createOrderServise.statusOrder(job.data)
 		console.log('старус оредера',order);
 
-		
+		if(!order){
+			const interval = this.schedulerRegistry.getInterval(job.id as string);
+			clearInterval(interval); 
+		}
 
 		if(order && order.creationStatus === 'Error'){
-			const interval = this.schedulerRegistry.getInterval(order.id);
+			const interval = this.schedulerRegistry.getInterval(job.id as string);
 			clearInterval(interval); 
 			await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:"ERROR",
@@ -38,8 +41,8 @@ export class OrdersConsumer {
 				orderError:order.errorInfo
 			})
 			if(!order){
-				const interval = this.schedulerRegistry.getInterval(order.id);
-				clearInterval(interval);
+				const interval = this.schedulerRegistry.getInterval(job.id as string);
+				clearInterval(interval); 
 				console.log('статуса нету');
 			}
 			console.log('ошибка в статусе');
@@ -59,7 +62,7 @@ export class OrdersConsumer {
 	async complite(job: Job){
 		if(job.returnvalue && job.returnvalue.creationStatus === 'Success'){
 			const order = job.returnvalue
-			const interval = this.schedulerRegistry.getInterval(order.id);
+			const interval = this.schedulerRegistry.getInterval(job.id as string);
 			clearInterval(interval); 
 			const resultOrder = await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
@@ -76,14 +79,14 @@ export class OrdersConsumer {
 	@OnQueueStalled()
 	stalled(job: Job){
 		const order = job.returnvalue
-		const interval = this.schedulerRegistry.getInterval(order.id);
+		const interval = this.schedulerRegistry.getInterval(job.id as string);
 		clearInterval(interval);
 	}
 
 	 @OnQueueFailed()
 	 async falis(job: Job,err:Error){
 			const order = job.returnvalue
-			const interval = this.schedulerRegistry.getInterval(order.id);
+			const interval = this.schedulerRegistry.getInterval(job.id as string);
 			clearInterval(interval); 
 			await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
@@ -96,8 +99,8 @@ export class OrdersConsumer {
 
 	@OnQueueError()
 	error(job: Job){
-		const order = job.returnvalue
-		const interval = this.schedulerRegistry.getInterval(order.id);
+	
+		const interval = this.schedulerRegistry.getInterval(job.id as string);
 		clearInterval(interval);
 	}
 }
