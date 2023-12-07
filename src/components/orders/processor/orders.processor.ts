@@ -32,7 +32,12 @@ export class OrdersConsumer {
 		}
 		
 		const order = await this.createOrderServise.statusOrder(bodydata)
-		console.log('старус оредера',order);
+
+		if(order.creationStatus){
+			console.log('старус оредера',order.creationStatus);
+		}
+
+		
 
 
 		if(!order){
