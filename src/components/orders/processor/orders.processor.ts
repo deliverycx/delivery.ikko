@@ -78,7 +78,7 @@ export class OrdersConsumer {
 
 	@OnQueueCompleted() 
 	async complite(job: Job){
-		/*
+		
 		if(job.returnvalue && job.returnvalue.creationStatus === 'Success'){
 			const order = job.returnvalue
 			console.log('hash order ',order.hash);
@@ -94,7 +94,7 @@ export class OrdersConsumer {
 			await this.botService.sendDuplicate(resultOrder)
 			
 		} 
-		*/
+		
 		console.log('OnQueueCompleted закончилась');
 	}
 
@@ -110,14 +110,14 @@ export class OrdersConsumer {
 	 @OnQueueFailed()
 	 async falis(job: Job,err:Error){
 			const order = job.returnvalue
-			/*
+		
 			const interval = this.schedulerRegistry.getInterval(order.hash as string);
 			clearInterval(interval); 
 			await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
 				orderError:err.message
 			})
-			*/
+			
 		console.log('сломалось ',err.message);
 	}
 

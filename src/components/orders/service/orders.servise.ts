@@ -72,14 +72,14 @@ export class OrdersServise{
 		);
 		
 		//проверка количества тиков счечиком и оставновка при ошибке
-		/*
+		
 		if (counter >= 15){
 			const interval = this.schedulerRegistry.getInterval(hash);
 			//await job.queue.off()
 			clearInterval(interval); 
 			await this.Repository.orderError({orderId:order.id},{error:"Привышено время ожидания"})
 		}	
-		*/
+		
 
 
 		console.log(counter);
