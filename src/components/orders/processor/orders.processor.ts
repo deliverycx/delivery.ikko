@@ -45,7 +45,7 @@ export class OrdersConsumer {
 			
 			clearInterval(interval); 
 		}
-		*/
+	
 		
 
 		if(order && order.creationStatus === 'Error'){
@@ -64,6 +64,7 @@ export class OrdersConsumer {
 			}
 			console.log('ошибка в статусе');
 		} 
+			*/
 		return {...order,hash:job.data.hash}
   }
 
@@ -77,6 +78,7 @@ export class OrdersConsumer {
 
 	@OnQueueCompleted() 
 	async complite(job: Job){
+		/*
 		if(job.returnvalue && job.returnvalue.creationStatus === 'Success'){
 			const order = job.returnvalue
 			console.log('hash order ',order.hash);
@@ -92,7 +94,7 @@ export class OrdersConsumer {
 			await this.botService.sendDuplicate(resultOrder)
 			
 		} 
-		
+		*/
 		console.log('OnQueueCompleted закончилась');
 	}
 
