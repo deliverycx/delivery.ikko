@@ -39,12 +39,13 @@ export class OrdersConsumer {
 
 		
 
-
+		/*
 		if(!order){
 			const interval = this.schedulerRegistry.getInterval(job.data.hash as string);
 			
 			clearInterval(interval); 
 		}
+		*/
 		
 
 		if(order && order.creationStatus === 'Error'){
