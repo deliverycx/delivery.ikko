@@ -42,6 +42,7 @@ export class OrdersConsumer {
 
 		if(!order){
 			const interval = this.schedulerRegistry.getInterval(job.data.hash as string);
+			
 			clearInterval(interval); 
 		}
 		
@@ -79,6 +80,8 @@ export class OrdersConsumer {
 			const order = job.returnvalue
 			console.log('hash order ',order.hash);
 			const interval = this.schedulerRegistry.getInterval(order.hash as string);
+			
+			
 			clearInterval(interval); 
 			const resultOrder = await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
