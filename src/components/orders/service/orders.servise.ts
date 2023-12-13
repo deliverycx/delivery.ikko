@@ -66,7 +66,7 @@ export class OrdersServise{
 			},
 			{			
 				jobId:jobId,
-				attempts:1,
+				attempts:3,
 				removeOnFail:true
 			}
 		);

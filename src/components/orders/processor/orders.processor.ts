@@ -39,7 +39,7 @@ export class OrdersConsumer {
 
 		
 
-		/*
+
 		if(!order){
 			const interval = this.schedulerRegistry.getInterval(job.data.hash as string);
 			
@@ -64,7 +64,7 @@ export class OrdersConsumer {
 			}
 			console.log('ошибка в статусе');
 		} 
-			*/
+
 		return {...order,hash:job.data.hash}
   }
 
