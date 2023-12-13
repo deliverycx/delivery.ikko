@@ -110,12 +110,14 @@ export class OrdersConsumer {
 	 @OnQueueFailed()
 	 async falis(job: Job,err:Error){
 			const order = job.returnvalue
+			/*
 			const interval = this.schedulerRegistry.getInterval(order.hash as string);
 			clearInterval(interval); 
 			await this.orderRepository.orderUpdateBYID(order.id,{
 				orderStatus:order.creationStatus,
 				orderError:err.message
 			})
+			*/
 		console.log('сломалось ',err.message);
 	}
 
