@@ -128,16 +128,16 @@ export class BodyOrderServise extends OrderServise {
 						"paymentTypeId": "dfeb1b1e-36bb-4861-baf8-03be367e169a",
 
 					}
-				] :
+				] /* :
 				this.getsubscriberBodyOrder.paymentMethod === OrderPaymentTypes.CARD
 					? [
 						{
 							"paymentTypeKind": "Card",
-							"sum": this.getsubscriberBodyOrder.paymentsum,
+							"sum": 1,
 							"paymentTypeId": "f2cc4be8-e7cb-405c-a4d8-c2712b5dc740",
 							"isProcessedExternally": true
 						}
-					]
+					] */
 					: null
 		}
 		this.orderBodyStates(res, 'order')
