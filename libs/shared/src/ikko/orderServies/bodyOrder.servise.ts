@@ -27,10 +27,10 @@ export class BodyOrderServise extends OrderServise {
 	public async bilderBody(bodyOrder:IsubscriberBodyBody) {
 		this.setSubscriberBodyOrder = bodyOrder
 		const typeOrder = await this.getOrderTypesId()
-		const terminal = await this.teminalOrganization()
-
-		this.commonBodyBrick(terminal)
+		//const terminal = await this.teminalOrganization()
 		
+		this.commonBodyBrick(bodyOrder.orderbody.terminal)
+		 
 		this.adressDeliveryBrick(this.getsubscriberBodyOrder.orderType)
 		/*
 		switch(this.getsubscriberBodyOrder.orderType){
@@ -47,7 +47,7 @@ export class BodyOrderServise extends OrderServise {
 			this.OnspotBrick()
 		}
 
-		this.orderBrick(typeOrder)
+		this.orderBrick(typeOrder.id)
 		this.paymentsBrick()
 
 		console.log('body state',this.bodyState);
@@ -55,9 +55,10 @@ export class BodyOrderServise extends OrderServise {
 	}
 
 	private commonBodyBrick(terminal: string) {
+		
 		const res = {
 			organizationId: this.getsubscriberBodyOrder.organization,
-			terminalGroupId: terminal,
+			terminalGroupId: this.getsubscriberBodyOrder.terminal,
 			createOrderSettings: {
 				mode: "Async"
 			},
@@ -65,7 +66,7 @@ export class BodyOrderServise extends OrderServise {
 		this.orderBodyStates(res)
 	}
 
-	private orderBrick(orderTypeId: any) {
+	private orderBrick(orderTypeId: string) {
 		
 		const res = {
 			phone: this.getsubscriberBodyOrder.phone,
@@ -80,7 +81,7 @@ export class BodyOrderServise extends OrderServise {
 			},
 			items: this.getsubscriberCartOrder,
 			comment: this.getsubscriberBodyOrder.comment,
-			orderTypeId: orderTypeId.id,
+			orderTypeId: orderTypeId,
 		}
 		//console.log('ress',res);
 		this.orderBodyStates(res, 'order')
@@ -140,7 +141,7 @@ export class BodyOrderServise extends OrderServise {
 					] */
 					: null
 		}
-		this.orderBodyStates(res, 'order')
+		this.orderBodyStates(res, 'order') 
 		
 	}
 

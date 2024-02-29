@@ -38,7 +38,7 @@ export class OrderDTO {
 		}
 
     phone: string;
-
+		terminal:string
 
     comment: string;
 		localhost:string

@@ -89,6 +89,7 @@ export type IOrderEntiti = {
 		}
 		organization: string
 		name: string
+		terminal:string
 		date: string
 		phone: string
 		comment: string

@@ -37,23 +37,33 @@ export class OrderServise{
 		return terminal
 	}
 
-	public async getOrderTypesId(orderType?:string,organization?:string):Promise<{id:string,name:string}> {
-
+	public async getOrderTypesId(orderType?:string,organization?:string):Promise<any> {
+		switch (orderType || this.getsubscriberBodyOrder.orderType) {
+			case OrderTypesEnum.PICKUP:
+				return { name: "Самовывоз", id: '5b1508f9-fe5b-d6af-cb8d-043af587d5c2' }
+			case OrderTypesEnum.COURIER:
+				return { name: 'Доставка "Хинкалыч"', id: '9ee06fcc-8233-46fa-b74d-ff6f50128afb' }
+			case OrderTypesEnum.ONSPOT:
+				return { name: "За столом", id: 'bbbef4dc-5a02-7ea3-81d3-826f4e8bb3e0' }
+		}
+		
+		/*
 		//console.log(this.getsubscriberBodyOrder);
 		const ikkoOrderTypes = await this.ikkoRequest.orderTypes(organization || this.getsubscriberBodyOrder.organization);
 		const result = ikkoOrderTypes.orderTypes[0].items.find((orderTypeEl) => {
 
 			switch (orderType || this.getsubscriberBodyOrder.orderType) {
 				case OrderTypesEnum.PICKUP:
-					return orderTypeEl.id === '5b1508f9-fe5b-d6af-cb8d-043af587d5c2' && orderTypeEl
+					return '5b1508f9-fe5b-d6af-cb8d-043af587d5c2'
 				case OrderTypesEnum.COURIER:
-					return orderTypeEl.id === '9ee06fcc-8233-46fa-b74d-ff6f50128afb' && orderTypeEl
+					return '9ee06fcc-8233-46fa-b74d-ff6f50128afb'
 				case OrderTypesEnum.ONSPOT:
-					return orderTypeEl.id === 'bbbef4dc-5a02-7ea3-81d3-826f4e8bb3e0' && orderTypeEl
+					return 'bbbef4dc-5a02-7ea3-81d3-826f4e8bb3e0'
 			}
 		});
 
 		//console.log(result);
 		return { name: result?.name, id: result?.id };
+		*/
 	}
 }
