@@ -81,7 +81,9 @@ export class OrdersConsumer {
 		
 		if(job.returnvalue && job.returnvalue.creationStatus === 'Success'){
 			const order = job.returnvalue
+			console.log('order',order);
 			console.log('hash order ',order.hash);
+
 			const interval = this.schedulerRegistry.getInterval(order.hash as string);
 			
 			
