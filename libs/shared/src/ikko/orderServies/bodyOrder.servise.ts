@@ -27,9 +27,9 @@ export class BodyOrderServise extends OrderServise {
 	public async bilderBody(bodyOrder:IsubscriberBodyBody) {
 		this.setSubscriberBodyOrder = bodyOrder
 		const typeOrder = await this.getOrderTypesId()
-		//const terminal = await this.teminalOrganization()
+		const terminal = await this.teminalOrganization()
 		
-		this.commonBodyBrick(bodyOrder.orderbody.terminal)
+		this.commonBodyBrick(terminal)//bodyOrder.orderbody.terminal
 		 
 		this.adressDeliveryBrick(this.getsubscriberBodyOrder.orderType)
 		/*
