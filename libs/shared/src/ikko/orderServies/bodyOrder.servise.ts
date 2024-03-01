@@ -58,7 +58,7 @@ export class BodyOrderServise extends OrderServise {
 		
 		const res = {
 			organizationId: this.getsubscriberBodyOrder.organization,
-			terminalGroupId: this.getsubscriberBodyOrder.terminal,
+			terminalGroupId: terminal, //this.getsubscriberBodyOrder.terminal,
 			createOrderSettings: {
 				mode: "Async"
 			},
