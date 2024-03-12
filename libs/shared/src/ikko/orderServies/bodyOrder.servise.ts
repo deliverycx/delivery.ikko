@@ -8,6 +8,10 @@ import { IOrderBody, IsubscriberBodyBody } from "@app/shared/@types";
 export class BodyOrderServise extends OrderServise {
 	protected bodyState: any
 
+	constructor(redis:any){
+		super(redis)
+	}
+
 
 	orderBodyStates(val: any, metod?: 'order') {
 		if (metod) {

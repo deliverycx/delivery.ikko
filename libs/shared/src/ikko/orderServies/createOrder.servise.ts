@@ -13,7 +13,7 @@ export class CreateOrderServise extends BodyOrderServise{
 	//private bodyOrder:BodyOrderServise
 
 	constructor(@Inject(REDIS) private readonly redis: RedisClient,){
-		super()
+		super(redis)
 		//this.bodyOrder = new BodyOrderServise()
 	}
 
@@ -30,6 +30,8 @@ export class CreateOrderServise extends BodyOrderServise{
 
 		const tokeninRedis = await redisToken
 		console.log('token',tokeninRedis);
+
+
 		const body = await this.bilderBody(bodyOrder)
 		
 		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){

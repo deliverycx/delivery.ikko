@@ -8,27 +8,51 @@ import { REDIS } from "src/redis.module";
 
 export class IIkoAxios extends AxiosRequest {
 	public _axios: AxiosInstance;
+	public redis:any
 
 	constructor(
-		
+		redis:any
 	) {
 		super(
 			process.env.TRANSFER_URL as string
 		);
+		this.redis = redis
 	}
 
 
-	private async token() {
-		
+	
+	async token() {
+		const redisToken = new Promise((resolve, reject) => {
+			this.redis.get("token", (err, token) => {
+				if (!err) {
+					resolve(token)
+				} else {
+					reject(err)
+				}
+			});
+		})
 
-		
-		const { data } = await this._axios.post<{ token: string }>(
-			`/access_token`,
-			{
-				apiLogin: "539ecfae"
-			}
-		);
-		return data.token;
+		const tokeninRedis = await redisToken
+		if (tokeninRedis) {
+			console.log('token in redis', tokeninRedis);
+			return tokeninRedis
+		} else {
+			const { data } = await this._axios.post<{ token: string }>(
+				`/access_token`,
+				{
+					apiLogin: "539ecfae"
+				}
+			);
+			this.redis.set(
+				"token",
+				data.token,
+				"EX",
+				10 * 60
+			);
+			console.log('token in ikko', data.token);
+			return data.token
+
+		}
 	}
 
 

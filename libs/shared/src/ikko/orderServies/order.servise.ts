@@ -5,8 +5,13 @@ import { IIkoAxios } from "../request/ikko.request";
 
 /* eslint-disable prettier/prettier */
 export class OrderServise{
-	public readonly ikkoRequest = new IIkoAxios()
+
+	public ikkoRequest
 	private subscriberBodyOrder:IsubscriberBodyBody
+
+	constructor(redis:any){
+		this.ikkoRequest = new IIkoAxios(redis)
+	}
 	
 	public set setSubscriberBodyOrder(body:IsubscriberBodyBody){
 		this.subscriberBodyOrder = body
