@@ -37,6 +37,8 @@
     "cross-env": "^7.0.3",
     "mongoose": "^7.0.3",
     "nestjs-typegoose": "^7.1.38",
+    "redis": "^3.1.2",
+		"connect-redis": "^6.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
@@ -50,6 +52,8 @@
     "@types/jest": "29.2.4",
     "@types/node": "18.11.18",
     "@types/supertest": "^2.0.11",
+		"@types/redis": "^2.8.32",
+		"@types/connect-redis": "^0.0.17",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",

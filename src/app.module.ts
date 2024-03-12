@@ -9,6 +9,7 @@ import * as path from "path";
 import { OrderModule } from './components/orders/module/orders.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ADMIN_DB } from './database/config.mongodb';
+import { RedisModule } from './redis.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { ADMIN_DB } from './database/config.mongodb';
         connectionName: ADMIN_DB
       }),
 	
-		OrderModule
+		OrderModule,
+		RedisModule
 	],
 
 })

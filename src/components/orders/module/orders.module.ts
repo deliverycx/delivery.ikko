@@ -16,6 +16,7 @@ import { OrderModel } from "src/database/order.model";
 import { TypegooseModule } from "nestjs-typegoose";
 import { CreateOrderServise } from "@app/shared/ikko/orderServies/createOrder.servise";
 import { BotService } from "@app/shared/deliveryBot/bot.service";
+import { RedisModule } from "src/redis.module";
 
 @Module({
 	imports: [
@@ -35,7 +36,8 @@ import { BotService } from "@app/shared/deliveryBot/bot.service";
 		BullModule.registerQueue({
 			name: 'order',
 		}),
-		RmqModule
+		RmqModule,
+		RedisModule
 	],
   controllers: [OrdersController],
   providers: [

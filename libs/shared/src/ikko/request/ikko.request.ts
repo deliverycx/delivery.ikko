@@ -1,12 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { orderRequestStatusData } from "@app/shared/@types";
 import { AxiosRequest } from "@app/shared/servises/AxiosRequest";
+import { Inject } from "@nestjs/common";
 import { Axios, AxiosInstance } from "axios";
+import { RedisClient } from "redis";
+import { REDIS } from "src/redis.module";
 
 export class IIkoAxios extends AxiosRequest {
 	public _axios: AxiosInstance;
 
-	constructor() {
+	constructor(
+		
+	) {
 		super(
 			process.env.TRANSFER_URL as string
 		);
@@ -14,6 +19,9 @@ export class IIkoAxios extends AxiosRequest {
 
 
 	private async token() {
+		
+
+		
 		const { data } = await this._axios.post<{ token: string }>(
 			`/access_token`,
 			{
@@ -22,6 +30,7 @@ export class IIkoAxios extends AxiosRequest {
 		);
 		return data.token;
 	}
+
 
 	public async orderTypes(organization) {
 		const token = await this.token();

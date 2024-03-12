@@ -10,6 +10,19 @@ services:
         restart: unless-stopped
         networks:
           - mynetwork
+    redis:
+        image: redis
+        command:
+            - "redis-server"
+            - "--loglevel ${REDIS_LOGLEVEL:-warning}"
+            - "--databases 2"
+            - "--save 900 1"
+            - "--save 300 10"
+            - "--save 60 10000"
+        volumes:
+            - ./redis/data:/data
+        networks:
+          - mynetwork
     rabbitmq:
       image: rabbitmq:management
       environment:
