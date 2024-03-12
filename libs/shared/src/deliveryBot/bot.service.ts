@@ -6,6 +6,7 @@ import { BotReverveTableDTO } from "./bot.DTO";
 import { IorderSendBot } from "./interfaces";
 import { IOrderBody, IOrderEntiti } from "../@types";
 import { OrderServise } from "../ikko/orderServies/order.servise";
+import { OrderTypesEnum } from "../common/constants/order.const";
 
 @Injectable()
 export class BotService{
@@ -16,11 +17,22 @@ export class BotService{
 				//this.orderServise = new OrderServise()
     }
 
+
+		public async getOrderTypesId(orderType:string) {
+			switch (orderType) {
+				case OrderTypesEnum.PICKUP:
+					return { name: "Самовывоз", id: '5b1508f9-fe5b-d6af-cb8d-043af587d5c2' }
+				case OrderTypesEnum.COURIER:
+					return { name: 'Доставка "Хинкалыч"', id: '9ee06fcc-8233-46fa-b74d-ff6f50128afb' }
+				case OrderTypesEnum.ONSPOT:
+					return { name: "За столом", id: 'bbbef4dc-5a02-7ea3-81d3-826f4e8bb3e0' }
+			}
+		}	
     public async sendDuplicate(
         orderBody:IOrderEntiti
     ) {
 				//const {name:orderTypeName} = await this.orderServise.getOrderTypesId(orderBody.orderParams.orderType,orderBody.organization)
-				const orderTypeName = ''
+				const orderTypeName = this.getOrderTypesId(orderBody.orderParams.orderType)
         await this.botRequest.sendDuplicate(orderBody.organization, {
 						orderid:orderBody.orderId,
 						ordernumber:orderBody.orderNumber,

@@ -18,18 +18,7 @@ export class CreateOrderServise extends BodyOrderServise{
 	}
 
 	async createOrder(bodyOrder){
-		const redisToken = new Promise((resolve, reject) => {
-			this.redis.get("token", (err, token) => {
-				if (!err) {
-					resolve(token)
-				} else {
-					reject(err)
-				}
-			});
-		})
-
-		const tokeninRedis = await redisToken
-		console.log('token',tokeninRedis);
+		
 
 
 		const body = await this.bilderBody(bodyOrder)
