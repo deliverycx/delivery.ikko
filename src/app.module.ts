@@ -25,7 +25,7 @@ import { RedisModule } from './redis.module';
       }),
 	
 		OrderModule,
-		RedisModule
+		//RedisModule
 	],
 
 })
