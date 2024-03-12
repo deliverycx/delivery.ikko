@@ -21,7 +21,7 @@ export class OrdersServise{
 		private schedulerRegistry: SchedulerRegistry,
 		@Inject(OrdersRepository) private readonly Repository,
 		private readonly createOrderServise: CreateOrderServise,
-		@Inject(REDIS) private readonly redis: RedisClient,
+		
 	) {
 
 	}
@@ -32,18 +32,7 @@ export class OrdersServise{
 	async createOrder(bodyOrder:IsubscriberBodyBody){
 		
 		try {
-			const redisToken = new Promise((resolve, reject) => {
-				this.redis.get("token", (err, token) => {
-					if (!err) {
-						resolve(token)
-					} else {
-						reject(err)
-					}
-				});
-			})
-	
-			const tokeninRedis = await redisToken
-			console.log('token',tokeninRedis);
+			
 
 			const result = await this.createOrderServise.createOrder(bodyOrder)
 			await this.Repository.orderUpdateBYhash(bodyOrder.orderbody.hash,{
