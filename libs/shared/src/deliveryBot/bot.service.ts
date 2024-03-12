@@ -13,14 +13,14 @@ export class BotService{
 		private orderServise:OrderServise
     constructor() {
 				this.botRequest = new BotAxios()
-				this.orderServise = new OrderServise()
+				//this.orderServise = new OrderServise()
     }
 
     public async sendDuplicate(
         orderBody:IOrderEntiti
     ) {
-				const {name:orderTypeName} = await this.orderServise.getOrderTypesId(orderBody.orderParams.orderType,orderBody.organization)
-
+				//const {name:orderTypeName} = await this.orderServise.getOrderTypesId(orderBody.orderParams.orderType,orderBody.organization)
+				const orderTypeName = ''
         await this.botRequest.sendDuplicate(orderBody.organization, {
 						orderid:orderBody.orderId,
 						ordernumber:orderBody.orderNumber,
