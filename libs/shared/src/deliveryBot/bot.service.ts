@@ -18,7 +18,7 @@ export class BotService{
     }
 
 
-		public async getOrderTypesId(orderType:string) {
+		public getOrderTypesId(orderType:string) {
 			switch (orderType) {
 				case OrderTypesEnum.PICKUP:
 					return { name: "Самовывоз", id: '5b1508f9-fe5b-d6af-cb8d-043af587d5c2' }
@@ -49,7 +49,7 @@ export class BotService{
                 };
             }),
 						orderTypeName:orderBody.orderParams.orderType,
-            orderType:orderTypeName,
+            orderType:orderTypeName.name,
 						ONSPOTTable:orderBody.orderParams.orderTable ? orderBody.orderParams.orderTable.numb : 0,
 						deliveryParam:{
 							timedelivery:orderBody.orderParams.timedelivery,
