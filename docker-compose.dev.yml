@@ -12,6 +12,7 @@ services:
           - mynetwork
     redis:
         image: redis
+        container_name: redis_ikko
         command:
             - "redis-server"
             - "--loglevel ${REDIS_LOGLEVEL:-warning}"
@@ -21,8 +22,6 @@ services:
             - "--save 60 10000"
         volumes:
             - ./redis/data:/data
-        networks:
-          - mynetwork
     rabbitmq:
       image: rabbitmq:management
       environment:
