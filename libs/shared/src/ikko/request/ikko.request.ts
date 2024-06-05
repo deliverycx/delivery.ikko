@@ -8,10 +8,10 @@ import { REDIS } from "src/redis.module";
 
 export class IIkoAxios extends AxiosRequest {
 	public _axios: AxiosInstance;
-	public redis:any
+	public redis: any
 
 	constructor(
-		redis:any
+		redis: any
 	) {
 		super(
 			process.env.TRANSFER_URL as string
@@ -20,7 +20,7 @@ export class IIkoAxios extends AxiosRequest {
 	}
 
 
-	
+
 	async token() {
 		const redisToken = new Promise((resolve, reject) => {
 			this.redis.get("token", (err, token) => {
@@ -40,7 +40,7 @@ export class IIkoAxios extends AxiosRequest {
 			const { data } = await this._axios.post<{ token: string }>(
 				`/access_token`,
 				{
-					apiLogin: "539ecfae"
+					apiLogin: "8302094a-a920-4072-b076-a3dd50d35fa7"
 				}
 			);
 			this.redis.set(
@@ -142,7 +142,7 @@ export class IIkoAxios extends AxiosRequest {
 
 	public async orderCheckStatusOrder(orderData: orderRequestStatusData) {
 		const token = await this.token();
-		
+
 		const { data } = await this._axios.post(
 			`/order/by_id`,
 			{
@@ -150,7 +150,7 @@ export class IIkoAxios extends AxiosRequest {
 					orderData.organizationId
 				],
 				"orderIds": orderData.orderIds
-			
+
 			},
 			{
 				headers: { Authorization: `Bearer ${token}` }
