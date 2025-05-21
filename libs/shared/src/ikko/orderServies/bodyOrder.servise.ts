@@ -8,7 +8,7 @@ import { IOrderBody, IsubscriberBodyBody } from "@app/shared/@types";
 export class BodyOrderServise extends OrderServise {
 	protected bodyState: any
 
-	constructor(redis:any){
+	constructor(redis: any) {
 		super(redis)
 	}
 
@@ -17,7 +17,7 @@ export class BodyOrderServise extends OrderServise {
 		if (metod) {
 			this.bodyState = {
 				...this.bodyState,
-				[metod]:{
+				[metod]: {
 					...this.bodyState[metod],
 					...val
 				}
@@ -28,13 +28,13 @@ export class BodyOrderServise extends OrderServise {
 
 	}
 
-	public async bilderBody(bodyOrder:IsubscriberBodyBody) {
+	public async bilderBody(bodyOrder: IsubscriberBodyBody) {
 		this.setSubscriberBodyOrder = bodyOrder
 		const typeOrder = await this.getOrderTypesId()
 		const terminal = await this.teminalOrganization()
-		
+
 		this.commonBodyBrick(terminal)//bodyOrder.orderbody.terminal
-		 
+
 		this.adressDeliveryBrick(this.getsubscriberBodyOrder.orderType)
 		/*
 		switch(this.getsubscriberBodyOrder.orderType){
@@ -47,19 +47,19 @@ export class BodyOrderServise extends OrderServise {
 		}
 		*/
 
-		if(this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT){
+		if (this.getsubscriberBodyOrder.orderType === OrderTypesEnum.ONSPOT) {
 			this.OnspotBrick()
 		}
 
 		this.orderBrick(typeOrder.id)
 		this.paymentsBrick()
 
-		console.log('body state',this.bodyState);
+		console.log('body state', this.bodyState);
 		return this.bodyState
 	}
 
 	private commonBodyBrick(terminal: string) {
-		
+
 		const res = {
 			organizationId: this.getsubscriberBodyOrder.organization,
 			terminalGroupId: terminal, //this.getsubscriberBodyOrder.terminal,
@@ -71,7 +71,7 @@ export class BodyOrderServise extends OrderServise {
 	}
 
 	private orderBrick(orderTypeId: string) {
-		
+
 		const res = {
 			phone: this.getsubscriberBodyOrder.phone,
 			//completeBefore: orderInfo.date,
@@ -91,8 +91,8 @@ export class BodyOrderServise extends OrderServise {
 		this.orderBodyStates(res, 'order')
 	}
 
-	private adressDeliveryBrick(orderType:string) {
-		console.log('ordertype - ',orderType);
+	private adressDeliveryBrick(orderType: string) {
+		console.log('ordertype - ', orderType);
 		const res = {
 			deliveryPoint: orderType === OrderTypesEnum.COURIER ? {
 				address: {
@@ -108,9 +108,9 @@ export class BodyOrderServise extends OrderServise {
 				},
 				comment: `${this.getsubscriberBodyOrder.address.street},${this.getsubscriberBodyOrder.address.home} / ${this.getsubscriberBodyOrder.timedelivery}`
 			}
-			: null
+				: null
 		}
-		
+
 		this.orderBodyStates(res, 'order')
 	}
 
@@ -125,7 +125,7 @@ export class BodyOrderServise extends OrderServise {
 
 	private paymentsBrick() {
 		const res = {
-			payments:this.getsubscriberBodyOrder.paymentMethod === OrderPaymentTypes.BYCARD
+			payments: this.getsubscriberBodyOrder.paymentMethod === OrderPaymentTypes.BYCARD
 				? [
 					{
 						"paymentTypeKind": "Card",
@@ -143,19 +143,19 @@ export class BodyOrderServise extends OrderServise {
 							"isProcessedExternally": true
 						}
 					] */
-					: null
+				: null
 		}
-		this.orderBodyStates(res, 'order') 
-		
+		this.orderBodyStates(res, 'order')
+
 	}
 
 
 
 
-		body(bodyOrder:IsubscriberBodyBody) {
-		
+	body(bodyOrder: IsubscriberBodyBody) {
+
 		//const res = this.bilderBody()
-		
+
 		//return res
 		/*
 		return {

@@ -76,6 +76,10 @@ export class IIkoAxios extends AxiosRequest {
 	}
 
 	public async termiralGroops(organization: string) {
+		if (organization === "1b0eb12f-970d-44b6-8167-044c097f174b") {
+			return "387dc60c-eac9-42a0-8265-b7b1818a3fb1"
+		}
+
 		const token = await this.token();
 		const { data } = await this._axios.post<any>(
 			`/terminal_groups`,
