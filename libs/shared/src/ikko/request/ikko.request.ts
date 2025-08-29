@@ -77,7 +77,7 @@ export class IIkoAxios extends AxiosRequest {
 
 	public async termiralGroops(organization: string) {
 		if (organization === "1b0eb12f-970d-44b6-8167-044c097f174b") {
-			return "387dc60c-eac9-42a0-8265-b7b1818a3fb1"
+			return "81fbe918-9ab3-4223-bf95-2e7031e184d6" //"387dc60c-eac9-42a0-8265-b7b1818a3fb1"
 		}
 
 		const token = await this.token();
