@@ -76,6 +76,7 @@ export class BodyOrderServise extends OrderServise {
 			phone: this.getsubscriberBodyOrder.phone,
 			//completeBefore: orderInfo.date,
 			customer: {
+				type: 'One-time',
 				name: this.getsubscriberBodyOrder.name,
 				comment: this.getsubscriberBodyOrder.phone
 			},
